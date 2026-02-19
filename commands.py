@@ -1,5 +1,6 @@
 import click
 from client import health, rpc
+import pretty
 
 @click.group()
 def cli():
@@ -17,13 +18,14 @@ def healthcheck():
 @click.option("--stake", required=True)
 def start(deck, stake):
     """Start a new run with a specific deck and stake."""
-    result = rpc("start", {"deck": deck.upper(), "stake": stake.upper()})
-    click.echo("Run started: ")
-    click.echo(result)
+    data = rpc("start", {"deck": deck.upper(), "stake": stake.upper()})
+    pretty.header("New Run")
+    pretty.kv(data, ["deck", "stake"])
 
 @cli.command()
 def shop():
-    rpc("shop")
+    data = rpc("gamestate")
+    pretty.display_shop(data)
 
 
 
