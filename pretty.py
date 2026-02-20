@@ -43,3 +43,18 @@ def display_shop(data: dict):
 def fallback(data: Any):
     import json
     click.echo(json.dumps(data, indent=2, sort_keys=True))
+
+def display_cards(data: dict):
+    header("Hand")
+    cards = data.get("hand", {}).get("cards", {})
+    
+    count = 0
+    for c in cards:
+        click.secho(f"{count:02d} ", bold = True, nl = False)
+        count += 1
+    click.echo()
+    for c in cards:
+        v = c.get("value",{})
+        click.echo(f"{v.get('suit')}{v.get('rank')} ", nl = False)
+
+    click.echo()
