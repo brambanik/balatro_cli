@@ -27,5 +27,20 @@ def shop():
     data = rpc("gamestate")
     pretty.display_shop(data)
 
+@cli.command()
+@click.argument("cards", required=True)
+def play(cards):
+    try:
+        indices = [int(x.strip()) for x in cards.split(",")]
+        rpc("play", {"cards": indices}, timeout = 30.0)
+    except RuntimeError as e:
+        click.echo("You are currently not able to select a hand.")
+
+# displays the current state
+@cli.command()
+def state():
+    data = rpc("gamestate")
+    click.echo("You are currently in ", nl = False)
+    click.secho(data["state"], fg="yellow")
 
 
