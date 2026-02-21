@@ -7,6 +7,9 @@ def cli():
     """Balatro CLI client."""
     pass
 
+
+# ACTIONS
+
 @cli.command()
 def healthcheck():
     """Check if the BalatroBot server is alive."""
@@ -23,9 +26,20 @@ def start(deck, stake):
     pretty.kv(data, ["deck", "stake"])
 
 @cli.command()
-def shop():
-    data = rpc("gamestate")
-    pretty.display_shop(data)
+def select():
+    rpc("select")
+
+@cli.command()
+def skip():
+    rpc("skip")
+
+@cli.command()
+def cashout():
+    rpc("cash_out")
+
+@cli.command()
+def leave():
+    rpc("next_round")
 
 @cli.command()
 @click.argument("cards", required=True)
@@ -45,6 +59,9 @@ def discard(cards):
     except RuntimeError as e:
         click.echo("You are currently not able to select a hand.")
 
+
+# DISPLAY / VISUALS
+
 # displays the current state
 @cli.command()
 def state():
@@ -56,3 +73,8 @@ def state():
 def hand():
     data = rpc("gamestate")
     pretty.display_cards(data)
+
+@cli.command()
+def shop():
+    data = rpc("gamestate")
+    pretty.display_shop(data)
