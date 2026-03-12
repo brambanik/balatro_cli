@@ -59,7 +59,14 @@ def discard(cards):
     except RuntimeError as e:
         click.echo("You are currently not able to select a hand.")
 
-
+@cli.command()
+@click.argument("item", required=True)
+def buy(item):
+    try:
+        rpc("buy", {"card":item}, timeout = 30.0)
+    except RuntimeError as e:
+        click.echo("You can't buy that.")
+    # buy shit here, check the json
 # DISPLAY / VISUALS
 
 # displays the current state
