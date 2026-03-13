@@ -69,9 +69,8 @@ def buy(item_type, item):
         print(item_id)
         rpc("buy", {f"{item_type}":item_id}, timeout = 30.0)
     except RuntimeError as e:
-        click.echo("You can't buy that. FUCK YOU!")
-        
-    # buy shit here, check the json
+        click.echo("You can't buy that.")
+
 
 @cli.command()
 @click.argument("choice", required=True)
@@ -84,7 +83,7 @@ def pick(choice, targets):
     else:
         target_indices = [int(x.strip(",")) for x in targets]
         rpc("pack",{"card":int(choice), "targets":target_indices})
-        #goongoon goon
+
 
 
 # DISPLAY / VISUALS
