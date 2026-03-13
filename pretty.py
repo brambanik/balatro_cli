@@ -23,6 +23,7 @@ def kv(data: dict[str, Any], keys: list[str]):
 
 def display_shop(data: dict):
     click.clear()
+    item_count = 0
     header("Shop")
     click.echo("Current Balance: ", nl=False)
     click.secho(f"${data.get("money")}", fg="green")
@@ -31,14 +32,16 @@ def display_shop(data: dict):
     vouchers = data.get("vouchers",[]).get("cards",[])
     click.echo(click.style("\n-> Jokers", bold=True))
     for c in cards:
-        click.echo(f"${c.get("cost",[]).get("buy",[])} -- {c.get("label",[])}: {c.get("value",[]).get("effect",[])}")
+        click.echo(f"{item_count} :: ${c.get("cost",[]).get("buy",[])} -- {c.get("label",[])}: {c.get("value",[]).get("effect",[])}")
+        item_count += 1
     click.echo(click.style("\n-> Packs", bold=True))
     for p in packs:
-        click.echo(f"${p.get("cost",[]).get("buy",[])} -- {p.get("label",[])}: {p.get("value",[]).get("effect",[])}")
+        click.echo(f"{item_count} :: ${p.get("cost",[]).get("buy",[])} -- {p.get("label",[])}: {p.get("value",[]).get("effect",[])}")
+        item_count += 1
     click.echo(click.style("\n-> Vouchers", bold=True))
     for v in vouchers:
-        click.echo(f"${v.get("cost",[]).get("buy",[])} -- {v.get("label",[])}: {v.get("value",[]).get("effect",[])}")
-
+        click.echo(f"{item_count} :: ${v.get("cost",[]).get("buy",[])} -- {v.get("label",[])}: {v.get("value",[]).get("effect",[])}")
+        item_count += 1
 # Fallback function for basic json display
 def fallback(data: Any):
     import json

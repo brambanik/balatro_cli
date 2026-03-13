@@ -60,13 +60,33 @@ def discard(cards):
         click.echo("You are currently not able to select a hand.")
 
 @cli.command()
+@click.argument("item_type", required=True)
 @click.argument("item", required=True)
-def buy(item):
+def buy(item_type, item):
     try:
-        rpc("buy", {"card":item}, timeout = 30.0)
+        item_id = int(item)
+        print(item_type.upper())
+        print(item_id)
+        rpc("buy", {f"{item_type}":item_id}, timeout = 30.0)
     except RuntimeError as e:
-        click.echo("You can't buy that.")
+        click.echo("You can't buy that. FUCK YOU!")
+        
     # buy shit here, check the json
+
+@cli.command()
+@click.argument("choice", required=True)
+@click.argument("targets", required=False)
+def pick(choice, targets):
+    if choice == "skip":
+        rpc("pack",{"skip":True})
+    if targets is None:
+        rpc("pack",{"card":int(choice)}, timeout=30.0)
+    else:
+        target_indices = [int(x.strip(",")) for x in targets]
+        rpc("pack",{"card":int(choice), "targets":target_indices})
+        #goongoon goon
+
+
 # DISPLAY / VISUALS
 
 # displays the current state
