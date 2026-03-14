@@ -35,10 +35,12 @@ def display_shop(data: dict):
         click.echo(f"{item_count} :: ${c.get("cost",[]).get("buy",[])} -- {c.get("label",[])}: {c.get("value",[]).get("effect",[])}")
         item_count += 1
     click.echo(click.style("\n-> Packs", bold=True))
+    item_count = 0
     for p in packs:
         click.echo(f"{item_count} :: ${p.get("cost",[]).get("buy",[])} -- {p.get("label",[])}: {p.get("value",[]).get("effect",[])}")
         item_count += 1
     click.echo(click.style("\n-> Vouchers", bold=True))
+    item_count = 0
     for v in vouchers:
         click.echo(f"{item_count} :: ${v.get("cost",[]).get("buy",[])} -- {v.get("label",[])}: {v.get("value",[]).get("effect",[])}")
         item_count += 1

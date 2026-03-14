@@ -84,6 +84,7 @@ def pick(choice, targets):
         target_indices = [int(x.strip(",")) for x in targets]
         rpc("pack",{"card":int(choice), "targets":target_indices})
 
+# DEBUG COMMANDS
 
 
 # DISPLAY / VISUALS
